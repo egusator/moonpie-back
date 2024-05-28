@@ -3,6 +3,8 @@ package com.example.moonpie_back.core.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -26,10 +28,14 @@ public class CartItem {
     private Integer hip;
 
     @Column(name = "price", nullable = false)
-    private Integer price;
+    private BigDecimal price;
 
     @Column(name = "count", nullable = false)
     private Integer count;
+
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
 
     @ManyToOne
     @JoinColumn(name = "size_id")
