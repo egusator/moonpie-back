@@ -49,6 +49,7 @@ public class CartItemService {
 
     public void addItemToCart(Long clientId, AddCartItemDto addCartItemDto) {
         Client client = clientRepository.findClientById(clientId);
+
         Item item = itemRepository.findAllByName(addCartItemDto.itemName()).get(0);
 
         Color itemColor = item.getColors()

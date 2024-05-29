@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class CartController {
     private final CartItemService cartItemService;
 
     @PostMapping(ApiPaths.CART)
-    public void addItemInCart(AddCartItemDto addCartItemDto) {
+    public void addItemInCart(@RequestBody AddCartItemDto addCartItemDto) {
         Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         cartItemService.addItemToCart(clientId, addCartItemDto);
     }
