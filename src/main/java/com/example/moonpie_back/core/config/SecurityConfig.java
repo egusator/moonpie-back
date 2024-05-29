@@ -37,7 +37,9 @@ public class SecurityConfig {
             ApiPaths.AUTH,
             ApiPaths.REGISTER,
             ApiPaths.ITEM,
-            ApiPaths.ITEM_BY_NAME
+            ApiPaths.ITEM_BY_NAME,
+            ApiPaths.CART,
+            ApiPaths.ORDER
     };
 
 
@@ -49,6 +51,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(
             HttpSecurity http,
+            JwtRequestFilter jwtRequestFilter,
             AuthenticationEntryPoint authenticationEntryPoint,
             AccessDeniedHandler accessDeniedHandler
     ) throws Exception {
@@ -66,6 +69,7 @@ public class SecurityConfig {
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(authenticationEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler))
+                .addFilterAfter(jwtRequestFilter, BasicAuthenticationFilter.class)
                 .build();
     }
 

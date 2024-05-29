@@ -30,12 +30,18 @@ public class Order {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private List<CartItem> cartItems;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "comment", nullable = false)
+    @Column(name = "comment")
     private String comment;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    private String city;
+
+    @Column(name = "full_name")
+    private String fullName;
+
 }

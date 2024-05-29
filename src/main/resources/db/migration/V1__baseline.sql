@@ -100,7 +100,6 @@ CREATE TABLE IF NOT EXISTS public.cart_item
     order_id bigint,
     size_id bigint,
     CONSTRAINT cart_item_pkey PRIMARY KEY (id),
-    CONSTRAINT cart_item_item_id_key UNIQUE (item_id),
     CONSTRAINT fk23n5618t1gl4kq8d1dxkan27j FOREIGN KEY (order_id)
         REFERENCES public.order_table (id) MATCH SIMPLE
         ON UPDATE NO ACTION

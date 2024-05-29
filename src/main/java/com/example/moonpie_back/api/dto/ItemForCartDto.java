@@ -5,6 +5,8 @@ import lombok.Builder;
 @Builder
 public record ItemForCartDto(
 
+        Long id,
+
         String name,
 
         String photoUrl,

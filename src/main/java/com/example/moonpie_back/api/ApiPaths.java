@@ -13,4 +13,6 @@ public class ApiPaths {
     public static final String ITEM_BY_NAME = API_PREFIX + "/item-by-name";
 
     public static final String CART = API_PREFIX + "/cart";
+
+    public static final String ORDER = API_PREFIX + "/order";
 }

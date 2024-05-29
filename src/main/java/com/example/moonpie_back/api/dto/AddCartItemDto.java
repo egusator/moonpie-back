@@ -8,6 +8,6 @@ public record AddCartItemDto(
 
         String color,
 
-        Long quantity
+        Integer quantity
 ) {
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Tag(name = "Корзина")
-@Validated
 @RestController
 @RequiredArgsConstructor
 public class CartController {
@@ -25,11 +24,12 @@ public class CartController {
     @PostMapping(ApiPaths.CART)
     public void addItemInCart(AddCartItemDto addCartItemDto) {
         Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        cartItemService.addItemToCart(clientId, addCartItemDto);
+        cartItemService.addItemToCart(1L, addCartItemDto);
     }
 
     @GetMapping(ApiPaths.CART)
     public List<ItemForCartDto> getCartOfUser() {
-        return null;
+        Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return cartItemService.getCartItemsByClientId(clientId);
     }
 }

@@ -18,13 +18,13 @@ public class CartItem {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "chest", nullable = false)
+    @Column(name = "chest")
     private Integer chest;
 
-    @Column(name = "waist", nullable = false)
+    @Column(name = "waist")
     private Integer waist;
 
-    @Column(name = "hip", nullable = false)
+    @Column(name = "hip")
     private Integer hip;
 
     @Column(name = "price", nullable = false)
@@ -41,7 +41,7 @@ public class CartItem {
     @JoinColumn(name = "size_id")
     private Size size;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "item_id", nullable = false, referencedColumnName = "id")
     private Item item;
 }
