@@ -1,6 +1,5 @@
 package com.example.moonpie_back.core.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
