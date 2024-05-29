@@ -23,7 +23,7 @@ public class CartController {
     @PostMapping(ApiPaths.CART)
     public void addItemInCart(AddCartItemDto addCartItemDto) {
         Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        cartItemService.addItemToCart(1L, addCartItemDto);
+        cartItemService.addItemToCart(clientId, addCartItemDto);
     }
 
     @GetMapping(ApiPaths.CART)
