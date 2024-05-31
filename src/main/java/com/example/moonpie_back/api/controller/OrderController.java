@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Заказы")
@@ -19,7 +20,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping(ApiPaths.ORDER)
-    public void CreateOrder(CreateOrderDto createOrderDto) {
+    public void CreateOrder(@RequestBody CreateOrderDto createOrderDto) {
         Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderService.createOrder(createOrderDto, clientId);
     }
