@@ -40,7 +40,6 @@ public class JwtAuthentication implements Authentication {
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
 
     }
-
     @Override
     public String getName() {
         return null;

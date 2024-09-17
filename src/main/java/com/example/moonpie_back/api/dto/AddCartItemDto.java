@@ -6,6 +6,8 @@ public record AddCartItemDto(
 
         String size,
 
+        CustomSize customSize,
+
         String color,
 
         Integer quantity

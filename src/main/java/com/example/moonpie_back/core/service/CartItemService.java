@@ -50,35 +50,40 @@ public class CartItemService {
     public void addItemToCart(Long clientId, AddCartItemDto addCartItemDto) {
         Client client = clientRepository.findClientById(clientId);
 
-        Item item = itemRepository.findAllByName(addCartItemDto.itemName()).get(0);
+        Item item = itemRepository.findAllByName(addCartItemDto.itemName()).getFirst();
 
         Color itemColor = item.getColors()
                 .stream()
                 .filter(color -> color.getValue().equals(addCartItemDto.color()))
-                .toList().get(0);
+                .toList().getFirst();
+
         CartItem cartItem = CartItem.builder()
                 .item(item)
                 .price(item.getPrice().multiply(BigDecimal.valueOf(addCartItemDto.quantity())))
                 .count(addCartItemDto.quantity())
-                .size(item.getSizes()
-                        .stream()
-                        .filter(size -> size.getValue().equals(addCartItemDto.size()))
-                        .toList().get(0))
-                .color(item.getColors()
-                        .stream()
-                        .filter(color -> color.getValue().equals(addCartItemDto.color()))
-                        .toList().get(0)).build();
+                .color(itemColor).build();
+
+        if (addCartItemDto.size() == null) {
+            cartItem.setWaist(addCartItemDto.customSize().waist());
+            cartItem.setHip(addCartItemDto.customSize().hip());
+            cartItem.setChest(addCartItemDto.customSize().chest());
+        } else {
+            cartItem.setSize(item.getSizes()
+                    .stream()
+                    .filter(color -> color.getValue().equals(addCartItemDto.size()))
+                    .toList().getFirst());
+        }
 
         Set<Order> orders = client.getOrders().stream().
                 filter(order -> order.getOrderStatus() == OrderStatus.CREATED)
                 .collect(Collectors.toSet());
 
         Order currentOrder;
-        if (orders.isEmpty() || orders == null) {
+        if (orders.isEmpty()) {
             currentOrder = Order.builder()
                     .orderStatus(OrderStatus.CREATED)
                     .client(client)
-                    .cartItems(Arrays.asList(cartItem))
+                    .cartItems(List.of(cartItem))
                     .build();
             orderRepository.save(currentOrder);
         } else {

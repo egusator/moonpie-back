@@ -1,11 +1,9 @@
-
-
 INSERT INTO color (value) VALUES
-('white'),
-('blue'),
-('dark-blue'),
-('graphit'),
-('mint');
+('Белый'),
+('Синий'),
+('Темно-синий'),
+('Графитный'),
+('Мятный');
 
 INSERT INTO size (value) VALUES
 ('42'),

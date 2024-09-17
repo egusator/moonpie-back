@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
 
-
     private final ClientService clientService;
 
     @PostMapping(ApiPaths.REGISTER)
