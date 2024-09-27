@@ -23,9 +23,6 @@ public class Item {
     @Column(name = "quantity_in_stock", nullable = false)
     private Integer quantityInStock;
 
-    @Column(name = "photo_url", nullable = false)
-    private String photoUrl;
-
     @Version
     private Long version;
 

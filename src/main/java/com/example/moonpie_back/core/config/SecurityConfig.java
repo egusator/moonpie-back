@@ -36,7 +36,8 @@ public class SecurityConfig {
             ApiPaths.ITEM,
             ApiPaths.ITEM_BY_NAME,
             ApiPaths.CART,
-            ApiPaths.ORDER
+            ApiPaths.ORDER,
+            ApiPaths.SAVED
     };
 
 

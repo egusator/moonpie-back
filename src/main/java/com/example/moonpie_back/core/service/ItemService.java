@@ -29,17 +29,15 @@ public class ItemService {
                             .size(item.getSizes().stream().map(Size::getValue).toList())
                             .color(item.getColors().stream().map(Color::getValue).toList())
                             .price(item.getPrice().toString())
-                            .photoUrl(item.getPhotoUrl())
                             .build();
                 }).toList();
     }
 
     public ItemFullInfoDto getItemByName(String name) {
-        Item item = itemRepository.findAllByName(name).get(0);
+        Item item = itemRepository.findByName(name);
         return ItemFullInfoDto.builder()
                 .name(item.getName())
                 .description(item.getDescription())
-                .photoUrl(item.getPhotoUrl())
                 .price(item.getPrice().toString())
                 .category(item.getCategory())
                 .colors(item.getColors().stream().map(Color::getValue).toList())

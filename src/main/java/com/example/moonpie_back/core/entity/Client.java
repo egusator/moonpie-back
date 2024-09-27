@@ -35,4 +35,15 @@ public class Client {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Set<Order> orders;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "saved_item",
+            joinColumns = {@JoinColumn(name = "client_id")},
+            inverseJoinColumns = {@JoinColumn(name = "item_id")}
+    )
+    private List<Item> savedItems;
 }

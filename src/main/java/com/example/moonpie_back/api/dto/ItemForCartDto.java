@@ -14,6 +14,7 @@ public record ItemForCartDto(
         String count,
 
         String size,
+        CustomSize customSize,
 
         String color,
 

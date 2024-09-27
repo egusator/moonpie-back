@@ -1,14 +1,20 @@
 package com.example.moonpie_back.core.service;
 
 import com.example.moonpie_back.api.dto.ClientRegistrationDto;
+import com.example.moonpie_back.api.dto.ItemForCatalogDto;
 import com.example.moonpie_back.core.entity.Client;
+import com.example.moonpie_back.core.entity.Color;
+import com.example.moonpie_back.core.entity.Item;
+import com.example.moonpie_back.core.entity.Size;
 import com.example.moonpie_back.core.event.UserAuthEvent;
 import com.example.moonpie_back.core.exception.BusinessException;
 import com.example.moonpie_back.core.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,4 +58,6 @@ public class ClientService {
 
         return jwtService.generateToken(client.getId().toString());
     }
+
+
 }

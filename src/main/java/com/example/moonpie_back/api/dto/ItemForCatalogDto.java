@@ -9,7 +9,6 @@ public record ItemForCatalogDto(
         String name,
         List<String> size,
         String price,
-        List<String> color,
-        String photoUrl
+        List<String> color
 ) {
 }

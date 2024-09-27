@@ -1,6 +1,7 @@
 package com.example.moonpie_back.core.service;
 
 import com.example.moonpie_back.api.dto.AddCartItemDto;
+import com.example.moonpie_back.api.dto.CustomSize;
 import com.example.moonpie_back.api.dto.ItemForCartDto;
 import com.example.moonpie_back.core.entity.*;
 
@@ -41,16 +42,17 @@ public class CartItemService {
                             .name(cartItem.getItem().getName())
                             .count(cartItem.getCount().toString())
                             .finalPrice(cartItem.getPrice().toString())
-                            .photoUrl(cartItem.getItem().getPhotoUrl())
                             .color(cartItem.getColor().getValue())
-                            .size(cartItem.getSize().getValue()).build();
+                            .size(cartItem.getSize() != null ? cartItem.getSize().getValue() : null)
+                            .customSize(cartItem.getSize() == null ? new CustomSize(cartItem.getHip(), cartItem.getWaist(), cartItem.getChest()) : null)
+                            .build();
                 }).toList();
     }
 
     public void addItemToCart(Long clientId, AddCartItemDto addCartItemDto) {
         Client client = clientRepository.findClientById(clientId);
 
-        Item item = itemRepository.findAllByName(addCartItemDto.itemName()).getFirst();
+        Item item = itemRepository.findByName(addCartItemDto.itemName());
 
         Color itemColor = item.getColors()
                 .stream()

@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS public.item
     category character varying(255) COLLATE pg_catalog."default" NOT NULL,
     description character varying(255) COLLATE pg_catalog."default" NOT NULL,
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    photo_url character varying(255) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT item_pkey PRIMARY KEY (id)
 );
 

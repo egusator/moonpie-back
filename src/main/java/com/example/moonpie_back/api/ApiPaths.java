@@ -10,6 +10,8 @@ public class ApiPaths {
 
     public static final String ITEM = API_PREFIX + "/item";
 
+    public static final String SAVED = API_PREFIX + "/saved";
+
     public static final String ITEM_BY_NAME = API_PREFIX + "/item-by-name";
 
     public static final String CART = API_PREFIX + "/cart";
