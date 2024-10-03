@@ -4,6 +4,8 @@ public class ApiPaths {
 
     public static final String API_PREFIX = "/api";
 
+    public static final String ADMIN_PREFIX = "/admin";
+
     public static final String AUTH = API_PREFIX + "/auth";
 
     public static final String REGISTER = API_PREFIX + "/register";
@@ -17,4 +19,6 @@ public class ApiPaths {
     public static final String CART = API_PREFIX + "/cart";
 
     public static final String ORDER = API_PREFIX + "/order";
+
+    public static final String ADMIN_ORDER = ADMIN_PREFIX + "/order";
 }

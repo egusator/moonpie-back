@@ -1,8 +1,7 @@
 package com.example.moonpie_back.api.controller;
 
 import com.example.moonpie_back.api.ApiPaths;
-import com.example.moonpie_back.api.dto.CreateOrderDto;
-import com.example.moonpie_back.api.dto.ItemForCatalogDto;
+import com.example.moonpie_back.api.dto.*;
 import com.example.moonpie_back.core.service.OrderService;
 import com.example.moonpie_back.core.service.SavedItemService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,11 +23,15 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    private final SavedItemService savedItemService;
-
     @PostMapping(ApiPaths.ORDER)
     public void createOrder(@RequestBody CreateOrderDto createOrderDto) {
         String clientId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderService.createOrder(createOrderDto, Long.valueOf(clientId));
+    }
+
+    @GetMapping(ApiPaths.ORDER)
+    public List<OrderFullInfoDto> getOrders() {
+        Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return orderService.getOrdersForClient(clientId);
     }
 }

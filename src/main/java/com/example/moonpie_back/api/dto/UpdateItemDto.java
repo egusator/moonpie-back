@@ -6,7 +6,7 @@ import com.example.moonpie_back.core.entity.Size;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public record CreateItemDto(
+public record UpdateItemDto(
 
         String name,
 
@@ -19,5 +19,6 @@ public record CreateItemDto(
         String description,
 
         String category
+
 ) {
 }

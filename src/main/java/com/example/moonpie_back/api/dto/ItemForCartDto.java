@@ -2,6 +2,9 @@ package com.example.moonpie_back.api.dto;
 
 import lombok.Builder;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Builder
 public record ItemForCartDto(
 
@@ -9,15 +12,15 @@ public record ItemForCartDto(
 
         String name,
 
-        String photoUrl,
+        List<String> photoUrlList,
 
-        String count,
+        Integer count,
 
         String size,
         CustomSize customSize,
 
         String color,
 
-        String finalPrice
+        BigDecimal finalPrice
 ) {
 }

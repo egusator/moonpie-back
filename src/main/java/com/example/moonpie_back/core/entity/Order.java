@@ -38,9 +38,13 @@ public class Order {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "city")
     private String city;
 
     @Column(name = "full_name")
     private String fullName;
+
+    @Column(name = "cdek_number")
+    private String CDEKOrderNumber;
 
 }
