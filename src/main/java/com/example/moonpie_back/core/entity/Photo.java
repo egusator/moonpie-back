@@ -12,12 +12,6 @@ public class Photo {
     @Id
     private String id;
 
-    private final String title;
-
-    public Photo(String title) {
-        this.title = title;
-    }
-
     @Setter
     private Binary image;
 

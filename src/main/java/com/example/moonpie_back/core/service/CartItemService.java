@@ -26,7 +26,7 @@ public class CartItemService {
     private final ItemRepository itemRepository;
 
     public List<ItemForCartDto> getCartItemsByClientId(Long clientId) {
-        Client client = clientRepository.findClientById(clientId);
+        Client client = clientRepository.findClientById(clientId).get();
         Set<Order> orders = client.getOrders();
         List<Order> createdOrders = orders.stream()
                 .filter(order -> order.getOrderStatus() == OrderStatus.CREATED)
@@ -40,8 +40,8 @@ public class CartItemService {
                     return ItemForCartDto.builder()
                             .id(cartItem.getId())
                             .name(cartItem.getItem().getName())
-                            .count(cartItem.getCount().toString())
-                            .finalPrice(cartItem.getPrice().toString())
+                            .count(cartItem.getCount())
+                            .finalPrice(cartItem.getPrice())
                             .color(cartItem.getColor().getValue())
                             .size(cartItem.getSize() != null ? cartItem.getSize().getValue() : null)
                             .customSize(cartItem.getSize() == null ? new CustomSize(cartItem.getHip(), cartItem.getWaist(), cartItem.getChest()) : null)
@@ -50,7 +50,7 @@ public class CartItemService {
     }
 
     public void addItemToCart(Long clientId, AddCartItemDto addCartItemDto) {
-        Client client = clientRepository.findClientById(clientId);
+        Client client = clientRepository.findClientById(clientId).get();
 
         Item item = itemRepository.findByName(addCartItemDto.itemName());
 

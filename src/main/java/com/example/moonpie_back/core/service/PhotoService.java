@@ -16,8 +16,8 @@ public class PhotoService {
 
     private PhotoRepository photoRepo;
 
-    public String addPhoto(String title, MultipartFile file) throws IOException {
-        Photo photo = new Photo(title);
+    public String addPhoto(String itemName, MultipartFile file) throws IOException {
+        Photo photo = new Photo();
         photo.setImage(
                 new Binary(BsonBinarySubType.BINARY, file.getBytes()));
         photo = photoRepo.insert(photo);

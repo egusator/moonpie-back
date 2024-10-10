@@ -4,7 +4,7 @@ import com.example.moonpie_back.api.ApiPaths;
 import com.example.moonpie_back.api.dto.CreateItemDto;
 import com.example.moonpie_back.api.dto.ItemForCatalogDto;
 import com.example.moonpie_back.api.dto.UpdateItemDto;
-import com.example.moonpie_back.core.ItemCategory;
+import com.example.moonpie_back.core.enums.ItemCategory;
 import com.example.moonpie_back.core.service.ItemService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

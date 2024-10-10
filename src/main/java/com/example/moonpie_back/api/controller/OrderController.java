@@ -2,8 +2,8 @@ package com.example.moonpie_back.api.controller;
 
 import com.example.moonpie_back.api.ApiPaths;
 import com.example.moonpie_back.api.dto.*;
+import com.example.moonpie_back.core.entity.OrderStatus;
 import com.example.moonpie_back.core.service.OrderService;
-import com.example.moonpie_back.core.service.SavedItemService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,8 +30,8 @@ public class OrderController {
     }
 
     @GetMapping(ApiPaths.ORDER)
-    public List<OrderFullInfoDto> getOrders() {
+    public List<OrderFullInfoDto> getOrders(OrderStatus orderStatus) {
         Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return orderService.getOrdersForClient(clientId);
+        return orderService.getOrdersForClient(clientId, orderStatus);
     }
 }

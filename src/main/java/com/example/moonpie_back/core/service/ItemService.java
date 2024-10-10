@@ -4,7 +4,7 @@ import com.example.moonpie_back.api.dto.CreateItemDto;
 import com.example.moonpie_back.api.dto.ItemForCatalogDto;
 import com.example.moonpie_back.api.dto.ItemFullInfoDto;
 import com.example.moonpie_back.api.dto.UpdateItemDto;
-import com.example.moonpie_back.core.ItemCategory;
+import com.example.moonpie_back.core.enums.ItemCategory;
 import com.example.moonpie_back.core.entity.Color;
 import com.example.moonpie_back.core.entity.Item;
 import com.example.moonpie_back.core.entity.Size;

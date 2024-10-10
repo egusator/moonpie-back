@@ -47,4 +47,5 @@ public class Order {
     @Column(name = "cdek_number")
     private String CDEKOrderNumber;
 
+
 }

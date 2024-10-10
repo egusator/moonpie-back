@@ -25,7 +25,7 @@ public class OrderService {
     private final ClientRepository clientRepository;
 
     public void createOrder(CreateOrderDto createOrderDto, Long clientId) {
-        Client client = clientRepository.findClientById(clientId);
+        Client client = clientRepository.findClientById(clientId).get();
         Set<Order> orders = client.getOrders();
         Order currentOrder = orders.stream()
                 .filter(order -> order.getOrderStatus() == OrderStatus.CREATED)
@@ -47,7 +47,7 @@ public class OrderService {
                 )
                 .filter(
                         order -> ordersFilterDto.clientName() == null ||
-                                order.getClient().getName().equals(ordersFilterDto.clientName())
+                                (order.getClient().getFullName()).equals(ordersFilterDto.clientName())
                 )
                 .filter(
                         order -> ordersFilterDto.orderId() == null ||
@@ -65,7 +65,7 @@ public class OrderService {
                         .id(order.getId())
                         .clientContactInfo(
                                 ClientContactInfo.builder()
-                                        .name(order.getClient().getName())
+                                        .name(order.getFullName())
                                         .email(order.getClient().getEmail())
                                         .phone(order.getClient().getPhoneNumber())
                                         .build()
@@ -115,40 +115,42 @@ public class OrderService {
         );
     }
 
-    public List<OrderFullInfoDto> getOrdersForClient(Long clientId) {
-        Client client = clientRepository.findClientById(clientId);
+    public List<OrderFullInfoDto> getOrdersForClient(Long clientId, OrderStatus orderStatus) {
+        Client client = clientRepository.findClientById(clientId).get();
         Set<Order> orders = client.getOrders();
-        return orders.stream().map(
-                order -> OrderFullInfoDto.builder()
-                        .id(order.getId())
-                        .clientContactInfo(
-                                ClientContactInfo.builder()
-                                        .name(order.getClient().getName())
-                                        .email(order.getClient().getEmail())
-                                        .phone(order.getClient().getPhoneNumber())
-                                        .build()
-                        )
-                        .orderStatus(order.getOrderStatus())
-                        .CDEKOrderNumber(order.getCDEKOrderNumber())
-                        .address(order.getAddress())
-                        .comment(order.getComment())
-                        .phoneNumber(order.getPhoneNumber())
-                        .city(order.getCity())
-                        .cartItems(order.getCartItems().stream()
-                                .map(
-                                        cartItem -> ItemForCartDto.builder()
-                                                .id(cartItem.getId())
-                                                .name(cartItem.getItem().getName())
-                                                .photoUrlList(cartItem.getItem().getPhotoUrlList().stream().toList())
-                                                .count(cartItem.getCount())
-                                                .size(cartItem.getSize().getValue())
-                                                .color(cartItem.getColor().getValue())
-                                                .finalPrice(cartItem.getPrice())
+        return orders.stream()
+                .filter(order -> orderStatus == null || order.getOrderStatus().equals(orderStatus))
+                .map(
+                        order -> OrderFullInfoDto.builder()
+                                .id(order.getId())
+                                .clientContactInfo(
+                                        ClientContactInfo.builder()
+                                                .name(order.getClient().getFullName())
+                                                .email(order.getClient().getEmail())
+                                                .phone(order.getClient().getPhoneNumber())
                                                 .build()
-                                ).toList()
-                        )
-                        .fullName(order.getFullName())
-                        .build()
-        ).toList();
+                                )
+                                .orderStatus(order.getOrderStatus())
+                                .CDEKOrderNumber(order.getCDEKOrderNumber())
+                                .address(order.getAddress())
+                                .comment(order.getComment())
+                                .phoneNumber(order.getPhoneNumber())
+                                .city(order.getCity())
+                                .cartItems(order.getCartItems().stream()
+                                        .map(
+                                                cartItem -> ItemForCartDto.builder()
+                                                        .id(cartItem.getId())
+                                                        .name(cartItem.getItem().getName())
+                                                        .photoUrlList(cartItem.getItem().getPhotoUrlList().stream().toList())
+                                                        .count(cartItem.getCount())
+                                                        .size(cartItem.getSize().getValue())
+                                                        .color(cartItem.getColor().getValue())
+                                                        .finalPrice(cartItem.getPrice())
+                                                        .build()
+                                        ).toList()
+                                )
+                                .fullName(order.getFullName())
+                                .build()
+                ).toList();
     }
 }

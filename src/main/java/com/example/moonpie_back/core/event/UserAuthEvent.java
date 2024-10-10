@@ -15,6 +15,7 @@ public enum UserAuthEvent implements EventInfo {
     USER_PASSWORD_IS_NOT_CORRECT(HttpStatus.BAD_REQUEST, Level.INFO),
     USER_WITH_THIS_EMAIL_IS_NOT_REGISTERED(HttpStatus.BAD_REQUEST, Level.INFO),
     ITEM_WITH_THIS_ID_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
+    USER_WITH_THIS_ID_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
     ORDER_WITH_THIS_ID_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO);
 
     private final HttpStatus status;

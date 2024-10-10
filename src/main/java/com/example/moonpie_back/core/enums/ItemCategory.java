@@ -1,8 +1,7 @@
-package com.example.moonpie_back.core;
+package com.example.moonpie_back.core.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @Getter

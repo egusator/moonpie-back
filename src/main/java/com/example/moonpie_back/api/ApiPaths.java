@@ -21,4 +21,10 @@ public class ApiPaths {
     public static final String ORDER = API_PREFIX + "/order";
 
     public static final String ADMIN_ORDER = ADMIN_PREFIX + "/order";
+
+    public static final String CLIENT_SIGNUP = API_PREFIX + "/sign-up";
+
+    public static final String ADMIN_REGISTER = ADMIN_PREFIX + "/register";
+
+    public static final String PROFILE_INFO = API_PREFIX + "/profile";
 }

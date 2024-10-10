@@ -1,6 +1,6 @@
 package com.example.moonpie_back.core.entity;
 
-import com.example.moonpie_back.core.ItemCategory;
+import com.example.moonpie_back.core.enums.ItemCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
