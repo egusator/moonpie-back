@@ -7,7 +7,6 @@ import com.example.moonpie_back.core.entity.OrderStatus;
 import com.example.moonpie_back.core.entity.Photo;
 import com.example.moonpie_back.core.event.UserAuthEvent;
 import com.example.moonpie_back.core.exception.BusinessException;
-import com.example.moonpie_back.core.exception.EventInfo;
 import com.example.moonpie_back.core.repository.ClientRepository;
 import com.example.moonpie_back.core.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,17 +1,14 @@
 package com.example.moonpie_back.api.controller;
 
 import com.example.moonpie_back.api.ApiPaths;
-import com.example.moonpie_back.api.dto.ClientRegistrationDto;
 import com.example.moonpie_back.api.dto.JwtAuthenticationResponse;
 import com.example.moonpie_back.api.dto.RefreshJwtRequest;
 import com.example.moonpie_back.api.dto.SignInRequest;
 import com.example.moonpie_back.core.service.AuthenticationService;
-import com.example.moonpie_back.core.service.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

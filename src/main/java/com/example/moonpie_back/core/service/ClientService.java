@@ -1,21 +1,15 @@
 package com.example.moonpie_back.core.service;
 
 import com.example.moonpie_back.api.controller.UpdateProfileDto;
-import com.example.moonpie_back.api.dto.AdminRegistrationDto;
-import com.example.moonpie_back.api.dto.ClientRegistrationDto;
 import com.example.moonpie_back.api.dto.ProfileInfoDto;
-import com.example.moonpie_back.core.entity.Authority;
 import com.example.moonpie_back.core.entity.Client;
 import com.example.moonpie_back.core.event.UserAuthEvent;
 import com.example.moonpie_back.core.exception.BusinessException;
-import com.example.moonpie_back.core.repository.AuthorityRepository;
 import com.example.moonpie_back.core.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Service
