@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: moonpie-back
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:postgresql://postgres:${PG_PORT:5432}/${PG_DATABASE:moonpie_service}
+    username: ${PG_USER:moonpie_service_user}
+    password: ${PG_PASSWORD:moonpie_service_password}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      max-file-size: 256MB
+      max-request-size: 256MB
+      enabled: false
+
+  flyway:
+    url: jdbc:postgresql://postgres:${PG_PORT:5432}/${PG_DATABASE:moonpie_service}
+    user: ${PG_USER:moonpie_service_user}
+    password: ${PG_PASSWORD:moonpie_service_password}
+
+jwt:
+  secret:
+    access: qBTmv4oXFFR2GwjexDJ4t6fsIUIUhhXqlktXjXdkcyygs8nPVEwMfo29VDRRepYDVV5IkIxBMzr7OEHXEHd37w==\
+    refresh: =zL1HB3Pch05Avfynovxrf/kpF9O2m4NCWKJUjEp27s9J2jEG3ifiKCGylaZ8fDeoONSTJP/wAzKawB8F9rOMNg==

@@ -47,5 +47,6 @@ tasks.named('test') {
 
 
 bootJar {
+	mainClass = 'com.example.moonpie_back.MoonpieBackApplication'
 	archiveFileName = "moonpie.jar"
 }

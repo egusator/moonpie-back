@@ -1,16 +1,29 @@
-version: '3.7'
+version: '3.9'
 
 services:
-  server:
+  moonpie:
+    container_name: moonpie-service
     build: .
     ports:
-      - "8082:8082"
+      - "8080:8080"
+    networks:
+      - moonpie_default
+    depends_on:
+      - postgres
+
   postgres:
     container_name: moonpie-postgres
     image: postgres:12.1-alpine
     ports:
-      - "5433:5433"
+      - "5432:5432"
     environment:
-      POSTGRES_DB: moonpie
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${PG_DATABASE}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    networks:
+      - moonpie_default
+
+networks:
+  moonpie_default:
+    external: false
+    driver: bridge
