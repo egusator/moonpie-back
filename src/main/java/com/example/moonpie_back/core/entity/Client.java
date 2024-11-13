@@ -59,8 +59,8 @@ public class Client implements UserDetails {
             CascadeType.PERSIST,
             CascadeType.REFRESH,
             CascadeType.MERGE
-    })
-    @JoinTable(name = "client_authorities",
+    }, fetch = FetchType.EAGER)
+    @JoinTable(name = "client_authority",
             joinColumns = {@JoinColumn(name = "client_id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id")}
     )

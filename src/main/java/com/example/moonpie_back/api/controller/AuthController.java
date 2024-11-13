@@ -25,21 +25,21 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @Operation(summary = "Авторизация пользователя")
-    @PostMapping("/login")
+    @PostMapping(ApiPaths.LOGIN)
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
         JwtAuthenticationResponse jwt = authenticationService.signIn(request);
         return jwt;
     }
 
     @Operation(summary = "Получение нового токена")
-    @PostMapping("/token")
+    @PostMapping(ApiPaths.TOKEN)
     public ResponseEntity<JwtAuthenticationResponse> getNewAccessToken(@RequestBody RefreshJwtRequest request) {
         final JwtAuthenticationResponse token = authenticationService.getAccessToken(request.refreshToken());
         return ResponseEntity.ok(token);
     }
 
     @Operation(summary = "Получение нового рефреш токена")
-    @PostMapping("/refresh")
+    @PostMapping(ApiPaths.REFRESH)
     public ResponseEntity<JwtAuthenticationResponse> getNewRefreshToken(@RequestBody RefreshJwtRequest request) {
         final JwtAuthenticationResponse token = authenticationService.refresh(request.refreshToken());
         return ResponseEntity.ok(token);

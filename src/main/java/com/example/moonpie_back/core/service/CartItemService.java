@@ -5,6 +5,8 @@ import com.example.moonpie_back.api.dto.CustomSize;
 import com.example.moonpie_back.api.dto.ItemForCartDto;
 import com.example.moonpie_back.core.entity.*;
 
+import com.example.moonpie_back.core.event.UserAuthEvent;
+import com.example.moonpie_back.core.exception.BusinessException;
 import com.example.moonpie_back.core.repository.ClientRepository;
 import com.example.moonpie_back.core.repository.ItemRepository;
 import com.example.moonpie_back.core.repository.OrderRepository;
@@ -26,11 +28,21 @@ public class CartItemService {
     private final ItemRepository itemRepository;
 
     public List<ItemForCartDto> getCartItemsByClientId(Long clientId) {
-        Client client = clientRepository.findClientById(clientId).get();
+        Optional<Client> clientById = clientRepository.findClientById(clientId);
+
+        if (clientById.isEmpty()) {
+            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_ID_IS_NOT_FOUND,
+                    "User with this id does not exist");
+        }
+
+        Client client = clientById.get();
+
         Set<Order> orders = client.getOrders();
+
         List<Order> createdOrders = orders.stream()
                 .filter(order -> order.getOrderStatus() == OrderStatus.CREATED)
                 .toList();
+
         if (createdOrders.isEmpty())
             return Collections.EMPTY_LIST;
         Order createdOrder = createdOrders.get(0);
@@ -93,6 +105,5 @@ public class CartItemService {
             currentOrder.getCartItems().add(cartItem);
             orderRepository.save(currentOrder);
         }
-
     }
 }

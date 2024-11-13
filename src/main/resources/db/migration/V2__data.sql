@@ -15,97 +15,115 @@ INSERT INTO size (value) VALUES
 ('54'),
 ('56');
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO category (name, parent_id) VALUES
+('Блуза', NULL),
+('Кимоно', NULL),
+('Туника', NULL),
+('Комбинезон', NULL),
+('Джоггеры', NULL),
+('Брюки', NULL);
+
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES
-('Блуза',
+(1,
  3690,
  1500,
  'Легкая, удлиненная, свободная блуза с рукавом до локтя и потайной молнией на спинке.',
- 'М1 Блуза свободного кроя'
+ 'М1 Блуза свободного кроя',
+ true
 );
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Кимоно',
+2,
  3450,
  1500,
  'Прямые линии, разные углы запаха, пояс для двойного оборота вокруг талии - все это сливается в одной моделе, делая ее стильной и комфортной.',
- 'М2 Кимоно'
+ 'М2 Кимоно',
+  true
 );
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Блуза',
+1,
  3590,
  1500,
  'Укороченный рукав, разный уровень передних полочек и спинки, скрытая молния по всей длине изделия.',
- 'М3 Блуза два уровня'
+ 'М3 Блуза два уровня',
+ true
 );
 
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Туника',
+3,
  3350,
  1500,
  'Рукав 3/4 и боковые разрезы обеспечивают весь спектр движений,... а удлиненная спинка позволяет чувствовать себя комфортно в любом положении.',
- 'М4 Туника'
+ 'М4 Туника',
+ true
 );
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Блуза',
+1,
  4100,
  1500,
  'Блуза с вставкой со складками, которые заходят на 1/3 спинки. Рукав 3/4. Скрытая молния по всей длине изделия.',
- 'М5 Блуза с вставкой'
+ 'М5 Блуза с вставкой',
+ true
 );
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Блуза',
+1,
  3850,
  1500,
  'Приталенная блуза с косой планкой и металлической молнией по всей длине спинки.',
- 'М6 Блуза с косой планкой'
+ 'М6 Блуза с косой планкой',
+ true
 );
 
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Комбинезон',
+4,
  5950,
  1500,
  'Комбинезон с резиночки на рукавах и штанинах, большими, вместительными карманами и акцентом на талии в виде пояса.',
- 'М7 Комбинезон'
+ 'М7 Комбинезон',
+ true
 );
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Джоггеры',
+5,
  3200,
  1500,
  'Джоггеры с резинкой на поясе и двумя карманами.',
- 'М8 Джоггеры'
+ 'М8 Джоггеры',
+ true
 );
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Брюки',
+6,
  3750,
  1500,
  'Брюки с широким поясом на талии и двумя скрытыми молниями по бокам. Длина брюк 7/8. По запросу длину брюк можно удлинить/укоротить.',
- 'М9 Брюки с поясом'
+ 'М9 Брюки с поясом',
+ true
 );
 
 
-INSERT INTO item (category, price, quantity_in_stock, description, name)
+INSERT INTO item (category_id, price, quantity_in_stock, description, name, to_display)
 VALUES (
-'Брюки',
+6,
  3490,
  1500,
  'Брюки с резинкой на поясе и скрытым шнурком на внутренней части для регулирования. Длина брюк 7/8. При необходимости есть возможность удлинения/укорочения длины.',
- 'М10 Брюки с резинкой на поясе'
+ 'М10 Брюки с резинкой на поясе',
+ true
 );
 
 

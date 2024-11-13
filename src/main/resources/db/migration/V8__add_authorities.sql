@@ -7,12 +7,14 @@ CREATE TABLE authority
 
 CREATE TABLE client_authority
 (
-    client_id BIGINT REFERENCES client,
-    authority_id BIGINT REFERENCES authority,
-    PRIMARY KEY (client_id, authority_id)
+    client_id BIGINT,
+    authority_id BIGINT,
+    PRIMARY KEY (client_id, authority_id),
+    FOREIGN KEY (client_id) REFERENCES client(id),
+    FOREIGN KEY (authority_id) REFERENCES authority(id)
 );
 
-INSERT INTO roles(name, description) VALUES
+INSERT INTO authority(name, description) VALUES
 ('USER', 'Пользователь без привелегий'),
 ('EMPLOYEE', 'Сотрудник'),
 ('ADMIN', 'Пользователь с привелегиями');

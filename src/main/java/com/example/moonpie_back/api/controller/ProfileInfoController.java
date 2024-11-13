@@ -10,14 +10,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Регистрация и авторизация")
+@Tag(name = "CRUD пользователя")
 @Validated
 @RestController
 @RequiredArgsConstructor
 public class ProfileInfoController {
     private final ClientService clientService;
 
-    @Operation(summary = "Авторизация пользователя")
+    @Operation(summary = "Получение информации о пользователе")
     @GetMapping(ApiPaths.PROFILE_INFO)
     public ProfileInfoDto getProfileInfo() {
         Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -25,16 +25,18 @@ public class ProfileInfoController {
 
     }
 
-    @Operation(summary = "Авторизация пользователя")
+    @Operation(summary = "Полное обновление информации о пользователе")
     @PutMapping(ApiPaths.PROFILE_INFO)
-    public void fullUpdateProfileInfo() {
-
+    public void fullUpdateProfileInfo(@RequestBody UpdateProfileDto updateProfileDto) {
+        Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        clientService.fullUpdateProfileInfo(clientId, updateProfileDto);
     }
 
-    @Operation(summary = "Авторизация пользователя")
+    @Operation(summary = "Частичное обновление информации о пользователе")
     @PatchMapping(ApiPaths.PROFILE_INFO)
-    public void partialUpdateProfileInfo() {
-
+    public void partialUpdateProfileInfo(@RequestBody UpdateProfileDto updateProfileDto) {
+        Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        clientService.partialUpdateProfileInfo(clientId, updateProfileDto);
     }
 
 

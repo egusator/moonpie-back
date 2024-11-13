@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class JwtService {
 
@@ -38,14 +37,14 @@ public class JwtService {
 
     public String generateAccessToken(@NonNull Client client) {
         final LocalDateTime now = LocalDateTime.now();
-        final Instant accessExpirationInstant = now.plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant();
+        final Instant accessExpirationInstant = now.plusMinutes(134334).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
         return Jwts.builder()
                 .setSubject(client.getUsername())
                 .setExpiration(accessExpiration)
                 .signWith(jwtAccessSecret)
                 .claim("authorities", client.getAuthorities())
-                .claim("id", client.getId())
+                .claim("jti", client.getId())
                 .compact();
     }
 
@@ -73,6 +72,11 @@ public class JwtService {
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+
+    public Long extractId(String token) {
+        return Long.valueOf(extractClaim(token, Claims::getId));
+    }
+
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);

@@ -4,6 +4,7 @@ import com.example.moonpie_back.api.dto.*;
 import com.example.moonpie_back.core.entity.Client;
 import com.example.moonpie_back.core.entity.Order;
 import com.example.moonpie_back.core.entity.OrderStatus;
+import com.example.moonpie_back.core.entity.Photo;
 import com.example.moonpie_back.core.event.UserAuthEvent;
 import com.example.moonpie_back.core.exception.BusinessException;
 import com.example.moonpie_back.core.exception.EventInfo;
@@ -25,17 +26,28 @@ public class OrderService {
     private final ClientRepository clientRepository;
 
     public void createOrder(CreateOrderDto createOrderDto, Long clientId) {
-        Client client = clientRepository.findClientById(clientId).get();
+        Optional<Client> clientById = clientRepository.findClientById(clientId);
+
+        if (clientById.isEmpty()) {
+            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_ID_IS_NOT_FOUND,
+                    "User with this id does not exist");
+        }
+
+        Client client = clientById.get();
+
         Set<Order> orders = client.getOrders();
+
         Order currentOrder = orders.stream()
                 .filter(order -> order.getOrderStatus() == OrderStatus.CREATED)
                 .toList()
                 .get(0);
+
         currentOrder.setOrderStatus(OrderStatus.IN_PROCESS);
         currentOrder.setCity(createOrderDto.city());
         currentOrder.setAddress(createOrderDto.address());
         currentOrder.setFullName(createOrderDto.fullName());
         currentOrder.setPhoneNumber(createOrderDto.phoneNumber());
+
         orderRepository.save(currentOrder);
     }
 
@@ -81,7 +93,14 @@ public class OrderService {
                                         cartItem -> ItemForCartDto.builder()
                                                 .id(cartItem.getId())
                                                 .name(cartItem.getItem().getName())
-                                                .photoUrlList(cartItem.getItem().getPhotoUrlList().stream().toList())
+                                                .photoUrlList(
+                                                        cartItem
+                                                                .getItem()
+                                                                .getPhotoUrlList()
+                                                                .stream()
+                                                                .map(Photo::getUrl)
+                                                                .toList()
+                                                )
                                                 .count(cartItem.getCount())
                                                 .size(cartItem.getSize().getValue())
                                                 .color(cartItem.getColor().getValue())
@@ -116,7 +135,15 @@ public class OrderService {
     }
 
     public List<OrderFullInfoDto> getOrdersForClient(Long clientId, OrderStatus orderStatus) {
-        Client client = clientRepository.findClientById(clientId).get();
+        Optional<Client> clientById = clientRepository.findClientById(clientId);
+
+        if (clientById.isEmpty()) {
+            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_ID_IS_NOT_FOUND,
+                    "User with this id does not exist");
+        }
+
+        Client client = clientById.get();
+
         Set<Order> orders = client.getOrders();
         return orders.stream()
                 .filter(order -> orderStatus == null || order.getOrderStatus().equals(orderStatus))
@@ -141,7 +168,14 @@ public class OrderService {
                                                 cartItem -> ItemForCartDto.builder()
                                                         .id(cartItem.getId())
                                                         .name(cartItem.getItem().getName())
-                                                        .photoUrlList(cartItem.getItem().getPhotoUrlList().stream().toList())
+                                                        .photoUrlList(
+                                                                cartItem
+                                                                        .getItem()
+                                                                        .getPhotoUrlList()
+                                                                        .stream()
+                                                                        .map(Photo::getUrl)
+                                                                        .toList()
+                                                        )
                                                         .count(cartItem.getCount())
                                                         .size(cartItem.getSize().getValue())
                                                         .color(cartItem.getColor().getValue())

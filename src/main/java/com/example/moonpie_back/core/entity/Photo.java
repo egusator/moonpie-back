@@ -1,18 +1,25 @@
 package com.example.moonpie_back.core.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
-import org.bson.types.Binary;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Table;
+import lombok.*;
 
-@Document(collection = "photos")
+@Entity
+@Getter
+@Setter
+@Builder
+@Table(name = "photos")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Photo {
-    @Getter
-    @Id
-    private String id;
 
-    @Setter
-    private Binary image;
+
+    @Id
+    private Long id;
+
+    @Column(name="url")
+    private String url;
 
 }

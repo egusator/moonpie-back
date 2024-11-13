@@ -11,6 +11,8 @@ import com.example.moonpie_back.core.exception.BusinessException;
 import com.example.moonpie_back.core.repository.AuthorityRepository;
 import com.example.moonpie_back.core.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -22,58 +24,18 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
-    private final AuthorityRepository authorityRepository;
 
-    private final PasswordService passwordService;
-
-    private final JwtService jwtService;
-
-    public void registerNewClient(ClientRegistrationDto clientRegistrationDto) {
-        Optional<Client> savedClientByEmail = Optional.ofNullable(
-                clientRepository.findClientByEmail(clientRegistrationDto.email()));
-
-        if (savedClientByEmail.isPresent()) {
-            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_EMAIL_ALREADY_EXISTS,
-                    "User with the email you specified already exists");
-        }
-
-        String encodedPassword = passwordService.encodePassword(clientRegistrationDto.password());
-        Client client = Client.builder()
-                .firstName(clientRegistrationDto.firstName())
-                .lastName(clientRegistrationDto.lastName())
-                .middleName(clientRegistrationDto.middleName())
-                .password(encodedPassword)
-                .email(clientRegistrationDto.email())
-                .build();
+    public void save(Client client) {
         clientRepository.save(client);
     }
 
-    public void registerNewEmployeeOrAdmin(AdminRegistrationDto adminRegistrationDto) {
-        Optional<Client> savedClientByEmail = Optional.ofNullable(
-                clientRepository.findClientByEmail(adminRegistrationDto.email()));
-
-        if (savedClientByEmail.isPresent()) {
-            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_EMAIL_ALREADY_EXISTS,
-                    "User with the email you specified already exists");
-        }
-        Authority authority = authorityRepository.findAuthorityByName(adminRegistrationDto.authorityName());
-        String encodedPassword = passwordService.encodePassword(adminRegistrationDto.password());
-        Client client = Client.builder()
-                .firstName(adminRegistrationDto.firstName())
-                .lastName(adminRegistrationDto.lastName())
-                .middleName(adminRegistrationDto.middleName())
-                .password(encodedPassword)
-                .email(adminRegistrationDto.email())
-                .authorities(Collections.singleton(authority))
-                .build();
-        clientRepository.save(client);
-
-
+    public UserDetailsService userDetailsService() {
+        return this::getClientByEmail;
     }
 
     public Client getClientByEmail(String email) {
-        Optional<Client> savedClientByEmail = Optional.ofNullable(
-                clientRepository.findClientByEmail(email));
+        Optional<Client> savedClientByEmail =
+                clientRepository.findClientByEmail(email);
 
         if (savedClientByEmail.isEmpty()) {
             throw new BusinessException(UserAuthEvent.USER_WITH_THIS_EMAIL_IS_NOT_REGISTERED,

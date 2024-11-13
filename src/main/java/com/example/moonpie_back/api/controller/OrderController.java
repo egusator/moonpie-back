@@ -4,6 +4,7 @@ import com.example.moonpie_back.api.ApiPaths;
 import com.example.moonpie_back.api.dto.*;
 import com.example.moonpie_back.core.entity.OrderStatus;
 import com.example.moonpie_back.core.service.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,12 +25,14 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping(ApiPaths.ORDER)
+    @Operation(summary = "Создать заказ пользователя")
     public void createOrder(@RequestBody CreateOrderDto createOrderDto) {
         String clientId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderService.createOrder(createOrderDto, Long.valueOf(clientId));
     }
 
     @GetMapping(ApiPaths.ORDER)
+    @Operation(summary = "Получение заказов пользователя")
     public List<OrderFullInfoDto> getOrders(OrderStatus orderStatus) {
         Long clientId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return orderService.getOrdersForClient(clientId, orderStatus);

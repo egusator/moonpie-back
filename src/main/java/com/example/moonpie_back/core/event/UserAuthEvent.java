@@ -16,7 +16,11 @@ public enum UserAuthEvent implements EventInfo {
     USER_WITH_THIS_EMAIL_IS_NOT_REGISTERED(HttpStatus.BAD_REQUEST, Level.INFO),
     ITEM_WITH_THIS_ID_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
     USER_WITH_THIS_ID_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
-    ORDER_WITH_THIS_ID_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO);
+    CATEGORY_WITH_THIS_NAME_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
+    ORDER_WITH_THIS_ID_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
+    COLOR_WITH_THIS_VALUE_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
+    SIZE_WITH_THIS_VALUE_IS_NOT_FOUND(HttpStatus.NOT_FOUND, Level.INFO),
+    NOT_IMPLEMENTED(HttpStatus.NOT_IMPLEMENTED, Level.INFO);
 
     private final HttpStatus status;
     private final Level level;

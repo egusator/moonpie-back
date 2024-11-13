@@ -10,11 +10,13 @@ public record CreateItemDto(
 
         String name,
 
+        String article,
+
         BigDecimal price,
 
-        Set<Color> colors,
+        Set<String> colors,
 
-        Set<Size> sizes,
+        Set<String> sizes,
 
         String description,
 

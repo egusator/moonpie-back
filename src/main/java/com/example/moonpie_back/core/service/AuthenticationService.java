@@ -4,6 +4,7 @@ import com.example.moonpie_back.api.dto.JwtAuthenticationResponse;
 import com.example.moonpie_back.api.dto.SignInRequest;
 import com.example.moonpie_back.core.entity.Client;
 import com.example.moonpie_back.core.repository.AuthorityRepository;
+import com.example.moonpie_back.core.repository.ClientRepository;
 import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ public class AuthenticationService {
     private final PasswordService passwordService;
 
     private final ClientService userService;
+
+    private final ClientRepository clientRepository;
 
     private final AuthenticationManager authenticationManager;
 
@@ -68,7 +71,11 @@ public class AuthenticationService {
             final String login = claims.getSubject();
             final String saveRefreshToken = refreshStorage.get(login);
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
+
+
                 final Client user = userService.getClientByEmail(login);
+
+
                 final String accessToken = jwtService.generateAccessToken(user);
                 final String newRefreshToken = jwtService.generateRefreshToken(user);
                 refreshStorage.put(user.getEmail(), newRefreshToken);

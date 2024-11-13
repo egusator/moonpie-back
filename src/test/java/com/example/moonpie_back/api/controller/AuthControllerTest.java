@@ -65,7 +65,7 @@ public class AuthControllerTest {
                 .content(new ObjectMapper().writeValueAsString(newClientDto)))
                 .andExpect(status().isOk());
 
-        Optional<Client> savedClient = Optional.ofNullable(clientRepository.findClientByEmail(newClientDto.email()));
+        Optional<Client> savedClient = clientRepository.findClientByEmail(newClientDto.email());
         assertThat(savedClient).isNotEmpty();
     }
 

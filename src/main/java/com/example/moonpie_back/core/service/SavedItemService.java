@@ -5,12 +5,15 @@ import com.example.moonpie_back.core.entity.Client;
 import com.example.moonpie_back.core.entity.Color;
 import com.example.moonpie_back.core.entity.Item;
 import com.example.moonpie_back.core.entity.Size;
+import com.example.moonpie_back.core.event.UserAuthEvent;
+import com.example.moonpie_back.core.exception.BusinessException;
 import com.example.moonpie_back.core.repository.ClientRepository;
 import com.example.moonpie_back.core.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +24,14 @@ public class SavedItemService {
     private final ItemRepository itemRepository;
 
     public List<ItemForCatalogDto> getSavedItems(Long clientId) {
-        Client client = clientRepository.findClientById(clientId);
+        Optional<Client> clientById = clientRepository.findClientById(clientId);
+
+        if (clientById.isEmpty()) {
+            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_ID_IS_NOT_FOUND,
+                    "User with this id does not exist");
+        }
+
+        Client client = clientById.get();
 
         return client.getSavedItems().stream()
                 .map(item -> ItemForCatalogDto.builder()
@@ -36,7 +46,14 @@ public class SavedItemService {
     public void saveItem(Long clientId, String itemName) {
         Item item = itemRepository.findByName(itemName);
 
-        Client client = clientRepository.findClientById(clientId);
+        Optional<Client> clientById = clientRepository.findClientById(clientId);
+
+        if (clientById.isEmpty()) {
+            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_ID_IS_NOT_FOUND,
+                    "User with this id does not exist");
+        }
+
+        Client client = clientById.get();
 
         client.getSavedItems().add(item);
 
@@ -46,7 +63,14 @@ public class SavedItemService {
     public void deleteFromSavedItems(Long clientId, String itemName) {
         Item item = itemRepository.findByName(itemName);
 
-        Client client = clientRepository.findClientById(clientId);
+        Optional<Client> clientById = clientRepository.findClientById(clientId);
+
+        if (clientById.isEmpty()) {
+            throw new BusinessException(UserAuthEvent.USER_WITH_THIS_ID_IS_NOT_FOUND,
+                    "User with this id does not exist");
+        }
+
+        Client client = clientById.get();
 
         client.getSavedItems().remove(item);
 

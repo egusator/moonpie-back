@@ -10,11 +10,15 @@ public record UpdateItemDto(
 
         String name,
 
+        String article,
+
         BigDecimal price,
 
-        Set<Color> colors,
+        Set<String> colors,
 
-        Set<Size> sizes,
+        Set<String> sizes,
+
+        Boolean toDisplay,
 
         String description,
 
