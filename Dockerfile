@@ -1,9 +1,12 @@
-FROM gradle:8.4.0-jdk21 AS builder
-WORKDIR /app
-COPY . /app
-RUN ./gradlew  bootJar
+FROM gradle:8.6.0-jdk21 AS builder
 
-FROM gradle:8.4.0-jdk21
 WORKDIR /app
-COPY --from=builder /app/build/libs/ .
-CMD java -jar moonpie.jar
+COPY build.gradle .
+COPY src src
+
+RUN gradle build -x test #убрать -x test после изменения тестов
+FROM openjdk:21
+
+COPY --from=builder /app/build/libs/moonpie.jar .
+
+CMD ["java", "-jar", "moonpie.jar"]
